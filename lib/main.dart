@@ -1,6 +1,9 @@
+import 'package:bigmannotes/views/login_view.dart';
+import 'package:bigmannotes/views/register_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'firebase_options.dart';
 
 /// // ...
@@ -9,82 +12,73 @@ import 'firebase_options.dart';
 /// );
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    MaterialApp(
+    GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const SplashScreen(),
     ),
   );
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late final TextEditingController _email;
-  late final TextEditingController _password;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    _email = TextEditingController();
-    _password = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register"),
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _email,
-            decoration: const InputDecoration(hintText: "Enter email"),
-            enableSuggestions: false,
-            autocorrect: false,
-            keyboardType: TextInputType.emailAddress,
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 1),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              // Colors.pink[200],
+              // Colors.purple[700],
+              Colors.purple.shade900,
+              Colors.purple.shade600
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          TextField(
-            controller: _password,
-            decoration: const InputDecoration(hintText: "Enter password"),
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Welcome to BigmanNotes',
+                style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 50.0),
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(LoginView());
+                },
+                child: const Text(
+                  'Login',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              OutlinedButton(
+                onPressed: () {
+                  Get.to(RegisterView());
+                },
+                child: const Text(
+                  'Register',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              await Firebase.initializeApp(
-                options: DefaultFirebaseOptions.currentPlatform,
-              );
-              final email = _email.text;
-              final password = _password.text;
-
-              final userCred = await FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: email, password: password);
-              print(userCred);
-            },
-            child: const Text("Register"),
-          ),
-        ],
+        ),
       ),
     );
   }
