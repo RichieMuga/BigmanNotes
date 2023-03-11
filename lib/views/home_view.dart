@@ -11,7 +11,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: Text("BIGMAN NOTES"),
+        backgroundColor: Color.fromRGBO(55, 48, 107, 1),
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
