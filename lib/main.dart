@@ -20,56 +20,44 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen2(),
+      home: HomePage(),
     ),
   );
 }
 
-class GradientScaffold extends StatelessWidget {
-  final Widget body;
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
-  GradientScaffold({required this.body});
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromRGBO(0, 0, 0, 0.2),
-                Colors.white,
-              ]),
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
+      body: FutureBuilder(
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
         ),
-        child: body,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              final user = FirebaseAuth.instance.currentUser;
+              // print(user);
+              if (user?.emailVerified == true) {
+                return const Text("user is verified");
+              } else {
+                return const Text("user is not verified");
+              }
+            default:
+              return const Text("loading");
+          }
+        },
       ),
     );
-  }
-}
-
-class SplashScreen2 extends StatelessWidget {
-  const SplashScreen2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GradientScaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-              "WELCOME"
-              "  TO",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Color.fromRGBO(61, 27, 64, 1),
-                  fontFamily: 'Poppins',
-                  fontSize: 26,
-                  letterSpacing: 3)),
-        ],
-      ),
-    ));
   }
 }
