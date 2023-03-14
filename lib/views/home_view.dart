@@ -11,8 +11,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("BIGMAN NOTES"),
-        backgroundColor: Color.fromRGBO(55, 48, 107, 1),
+        title: const Text("BIGMAN NOTES"),
+        backgroundColor:const Color.fromRGBO(55, 48, 107, 1),
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
@@ -23,11 +23,11 @@ class HomePage extends StatelessWidget {
             case ConnectionState.done:
               // print(FirebaseAuth.instance.currentUser);
               if (FirebaseAuth.instance.currentUser?.emailVerified == false) {
-                print("You have not verified");
+                return const Text("You have not verified");
               } else {
-                print("My guy you are verified");
+                return const Text("My guy you are verified");
               }
-              return const Text("data");
+
             default:
               return const Text("loading");
           }

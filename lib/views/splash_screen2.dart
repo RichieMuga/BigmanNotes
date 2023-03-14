@@ -10,7 +10,7 @@ class GradientScaffold extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient:const LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
@@ -34,15 +34,16 @@ class SplashScreen2 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
               "WELCOME"
               "  TO",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Color.fromRGBO(61, 27, 64, 1),
+                  color:const Color.fromRGBO(61, 27, 64, 1),
                   fontFamily: 'Poppins',
                   fontSize: 26,
                   letterSpacing: 3)),
+        
         ],
       ),
     ));

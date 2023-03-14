@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 1),
+        padding:const EdgeInsets.symmetric(horizontal: 1),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -48,7 +48,7 @@ class SplashScreen extends StatelessWidget {
               const SizedBox(height: 20.0),
               OutlinedButton(
                 onPressed: () {
-                  Get.to(RegisterView());
+                  Get.to( const RegisterView());
                 },
                 child: const Text(
                   'Register',
