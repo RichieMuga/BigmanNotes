@@ -1,7 +1,7 @@
 import 'package:bigmannotes/views/login_view.dart';
 import 'package:bigmannotes/views/register_view.dart';
+import 'package:bigmannotes/views/splash_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import '../views/splash_screen.dart';
 
 class Routes {
   static const LOGIN = '/login';
@@ -10,7 +10,7 @@ class Routes {
 
   static final routes = [
     GetPage(name: LOGIN, page: () => const LoginView()),
-    GetPage(name: SPLASHSCREEN, page: () => const SplashScreen()),
+    GetPage(name: SPLASHSCREEN, page: () => SplashScreen()),
     GetPage(name: REGISTER, page: () => const RegisterView()),
   ];
 }

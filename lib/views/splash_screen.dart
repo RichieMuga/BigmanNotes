@@ -1,64 +1,105 @@
-import 'package:bigmannotes/views/login_view.dart';
-import 'package:bigmannotes/views/register_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../widgets/gradientBackground.dart';
+import '../widgets/image_list.dart';
+import '../widgets/size_Box.dart';
+import 'login_view.dart';
+import 'register_view.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding:const EdgeInsets.symmetric(horizontal: 1),
+    return SafeArea(
+      child: Scaffold(
+          body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              // Colors.pink[200],
-              // Colors.purple[700],
-              Colors.purple.shade900,
-              Colors.purple.shade600
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          gradient: MyGradientBackground(),
         ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Welcome to BigmanNotes',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  "WELCOME"
+                  "  TO",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: const Color.fromRGBO(61, 27, 64, 1),
+                      fontFamily: 'Poppins',
+                      fontSize: 26,
+                      letterSpacing: 3)),
+              const Padding(
+                padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
+                child: Text('BIGMAN NOTES',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Color.fromRGBO(104, 54, 147, 1),
+                        fontFamily: 'Bebas Neue',
+                        fontSize: 36,
+                        letterSpacing:
+                            0 /*percentages not used in flutter. defaulting to zero*/,
+                        fontWeight: FontWeight.normal,
+                        height: 1)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, top: 30, bottom: 60),
+                child: Row(
+                  children: [
+                    const ExpandedImageWidget(imagePath: 'assets/Ellipse1.png'),
+                    SizedBoxWidget(),
+                    const ExpandedImageWidget(imagePath: 'assets/Polygon1.png'),
+                    SizedBoxWidget(),
+                    const ExpandedImageWidget(
+                        imagePath: 'assets/Rectangle9.png'),
+                  ],
                 ),
               ),
-              const SizedBox(height: 50.0),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(LoginView());
-                },
+              SizedBox(
+                width: 200,
+                height: 45,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(const RegisterView());
+                  },
+                  child: const Text('Sign In'),
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF6D478C),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      textStyle: const TextStyle(fontSize: 16)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 35.0, bottom: 35.0),
                 child: const Text(
-                  'Login',
-                  style: TextStyle(fontSize: 20.0),
+                  "Don't have an account?",
+                  style: TextStyle(decoration: TextDecoration.underline),
                 ),
               ),
-              const SizedBox(height: 20.0),
-              OutlinedButton(
-                onPressed: () {
-                  Get.to( const RegisterView());
-                },
-                child: const Text(
-                  'Register',
-                  style: TextStyle(fontSize: 20.0),
+              SizedBox(
+                width: 100,
+                height: 45,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(const LoginView());
+                  },
+                  child: Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF5442C1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      textStyle: const TextStyle(fontSize: 16)),
                 ),
-              ),
+              )
             ],
           ),
         ),
-      ),
+      )),
     );
   }
 }

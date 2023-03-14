@@ -17,7 +17,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // Already did: implement initState
     _email = TextEditingController();
     _password = TextEditingController();
     super.initState();
@@ -25,7 +25,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    // Already did: implement dispose
     _email.dispose();
     _password.dispose();
     super.dispose();
