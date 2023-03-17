@@ -54,19 +54,15 @@ class LandingPage extends StatelessWidget {
     //   }
     //   print(posts.length);
     // }
-
-    getPost<Post>() async {
+    Future<List<Post>> getPost() async {
       var response = await http
           .get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
       if (response.statusCode == 200) {
-        // var jsonResponse = convert.jsonDecode(response.body);
-        List jsonResponse = json.decode(response.body);
-        jsonResponse.map((posts) => {
-          // Post.fromJson(posts)
-        });
-      }
-      else {
+        List<dynamic> jsonResponse = json.decode(response.body);
+        return jsonResponse.map((post) => Post.fromJson(post)).toList();
+      } else {
         print("Request failed with status: ${response.statusCode}.");
+        throw "Reading failed";
       }
     }
 
@@ -74,8 +70,27 @@ class LandingPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Parsing json from server"),
         ),
-        body: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) => Column(children: [])));
+        body: FutureBuilder(
+          future: getPost(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<Post>? data = snapshot.data as List<Post>?;
+              return ListView.builder(
+                  itemCount: data!.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(data[index].title),
+                      subtitle: Text(data[index].body),
+                    );
+                  });
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return CircularProgressIndicator();
+          },
+
+        
+        )
+          );
   }
 }
