@@ -1,5 +1,6 @@
 import 'package:bigmannotes/main.dart';
-import 'package:bigmannotes/views/dashboard.dart';
+import 'package:bigmannotes/views/testingAPI.dart';
+import 'package:bigmannotes/views/verify_email.dart';
 import 'package:bigmannotes/views/home_page.dart';
 import 'package:bigmannotes/views/login_view.dart';
 import 'package:bigmannotes/views/register_view.dart';
@@ -16,7 +17,7 @@ class Routes {
     GetPage(name: LOGIN, page: () => const LoginView()),
     GetPage(name: HOMEPAGE, page: () => HomePage()),
     GetPage(name: REGISTER, page: () => const RegisterView()),
-    GetPage(name: DASHBOARD, page: () => const Dashboard()),
-    GetPage(name: LANDINGPAGE, page: () => const LandingPage()),
+    GetPage(name: DASHBOARD, page: () => const VerifyEmail()),
+    GetPage(name: LANDINGPAGE, page: () => const ParseJson()),
   ];
 }

@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 import '../firebase_options.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+class VerifyEmail extends StatelessWidget {
+  const VerifyEmail({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("BIGMAN NOTES"),
-        backgroundColor:const Color.fromRGBO(55, 48, 107, 1),
+        backgroundColor: const Color.fromRGBO(55, 48, 107, 1),
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(

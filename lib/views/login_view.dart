@@ -74,8 +74,7 @@ class _LoginViewState extends State<LoginView> {
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
                         print(userCred);
-                           await Get.to(() => const LandingPage());
-
+                        // await Get.to(() => const ParseJson());
                       } on FirebaseAuthException catch (e) {
                         if (e.code == "user-not-found") {
                           print("Account does not exist");

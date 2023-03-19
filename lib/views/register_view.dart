@@ -72,9 +72,9 @@ class _RegisterViewState extends State<RegisterView> {
                             .createUserWithEmailAndPassword(
                                 email: email, password: password);
                         print(userCred);
-                        if (userCred != null && userCred.user != null) {
-                           await Get.to( () => const LandingPage());
-                        }
+                        // if (userCred != null && userCred.user != null) {
+                        //   await Get.to(() => const ParseJson());
+                        // }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == "weak-password") {
                           print("Weak password");
