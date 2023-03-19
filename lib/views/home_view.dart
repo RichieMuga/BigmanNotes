@@ -1,3 +1,4 @@
+import 'package:bigmannotes/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,12 @@ class HomePage extends StatelessWidget {
             case ConnectionState.done:
               // print(FirebaseAuth.instance.currentUser);
               if (FirebaseAuth.instance.currentUser?.emailVerified == false) {
-                print("You have not verified");
+                Get.to( const VerifyEmail());
               } else {
-                // Get.to();
                 print("My guy you are verified");
+                return const Text("Bigman verified");
               }
-              return const Text("data");
+              return const Text("Done");
             default:
               return const Text("loading");
           }
