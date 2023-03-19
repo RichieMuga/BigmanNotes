@@ -1,3 +1,4 @@
+import 'package:bigmannotes/views/home_view.dart';
 import 'package:bigmannotes/views/login_view.dart';
 import 'package:bigmannotes/views/register_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,44 +21,9 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     ),
   );
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
-              // print(user);
-              if (user?.emailVerified == true) {
-                return const Text("user is verified");
-              } else {
-                return const Text("user is not verified");
-              }
-            default:
-              return const Text("loading");
-          }
-        },
-      ),
-    );
-  }
-}

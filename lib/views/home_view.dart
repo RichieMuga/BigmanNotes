@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../firebase_options.dart';
 
@@ -25,6 +26,7 @@ class HomePage extends StatelessWidget {
               if (FirebaseAuth.instance.currentUser?.emailVerified == false) {
                 print("You have not verified");
               } else {
+                // Get.to();
                 print("My guy you are verified");
               }
               return const Text("data");
