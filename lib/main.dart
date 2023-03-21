@@ -21,7 +21,7 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const VerifyEmail(),
+      home: const LoginView(),
     ),
   );
 }
@@ -46,7 +46,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
             TextButton(
                 onPressed: () async {
                   final user = FirebaseAuth.instance.currentUser;
-                  print(user);
+                  // print(user);
                   await user?.sendEmailVerification();
                 },
                 child: const Text("Send verification email"))

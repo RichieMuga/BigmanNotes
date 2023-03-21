@@ -38,7 +38,7 @@ class SplashScreen extends StatelessWidget {
               const SizedBox(height: 50.0),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(LoginView());
+                  Get.to(()=>LoginView());
                 },
                 child: const Text(
                   'Login',

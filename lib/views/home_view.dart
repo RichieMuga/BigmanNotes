@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             case ConnectionState.done:
               // print(FirebaseAuth.instance.currentUser);
               if (FirebaseAuth.instance.currentUser?.emailVerified == false) {
-                Get.to( const VerifyEmail());
+                Get.to(()=> const VerifyEmail());
               } else {
                 print("My guy you are verified");
                 return const Text("Bigman verified");

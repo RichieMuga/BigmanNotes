@@ -1,6 +1,8 @@
+import 'package:bigmannotes/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../firebase_options.dart';
 
@@ -72,6 +74,7 @@ class _LoginViewState extends State<LoginView> {
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
                         print(userCred);
+                        Get.to(()=> VerifyEmail());
                       } on FirebaseAuthException catch (e) {
                         if (e.code == "user-not-found") {
                           print("Account does not exist");
