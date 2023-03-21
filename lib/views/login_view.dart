@@ -1,4 +1,5 @@
 import 'package:bigmannotes/main.dart';
+import 'package:bigmannotes/views/register_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,9 @@ class _LoginViewState extends State<LoginView> {
                     },
                     child: const Text("Login"),
                   ),
+                  TextButton(onPressed: (){
+                    Get.to(()=>RegisterView());
+                  }, child: Text("Not registered? Register here!"))
                 ],
               );
             default:

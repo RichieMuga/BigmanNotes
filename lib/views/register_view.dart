@@ -83,6 +83,11 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                     child: const Text("Register"),
                   ),
+                   TextButton(
+                      onPressed: () {
+                        Get.to(() => LoginView());
+                      },
+                      child: Text("Already have an account? Login here!"))
                 ],
               );
             default:
