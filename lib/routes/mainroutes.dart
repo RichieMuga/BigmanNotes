@@ -17,7 +17,7 @@ class Routes {
     GetPage(name: LOGIN, page: () => const LoginView()),
     GetPage(name: HOMEPAGE, page: () => HomePage()),
     GetPage(name: REGISTER, page: () => const RegisterView()),
-    GetPage(name: DASHBOARD, page: () => const VerifyEmail()),
+    // GetPage(name: DASHBOARD, page: () => const VerifyEmail()),
     GetPage(name: LANDINGPAGE, page: () => const ParseJson()),
   ];
 }
