@@ -77,7 +77,15 @@ class _LoginViewState extends State<LoginView> {
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
                         print(userCred);
-                        Get.to(() =>  HomePage());
+                        // Get.to(() =>  VerifyEmail());
+                        // print(FirebaseAuth.instance.currentUser);
+                        if (FirebaseAuth.instance.currentUser?.emailVerified ==
+                            false) {
+                          Get.offAll(() => const VerifyEmail());
+                        } else {
+                          // print("My guy you are verified");
+                          Get.offAll(() => const DashBoard());
+                        }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == "user-not-found") {
                           print("Account does not exist");

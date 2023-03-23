@@ -25,10 +25,17 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   final user = FirebaseAuth.instance.currentUser;
                   if (user != null) {
                     if (user.emailVerified) {
-                      return Get.offAll(()=> const DashBoard());
+                      return Get.offAll(() => const DashBoard());
                     }
                   }
                   await user?.sendEmailVerification();
+                  if (FirebaseAuth.instance.currentUser?.emailVerified ==
+                      false) {
+                    Get.offAll(() => const VerifyEmail());
+                  } else {
+                    // print("My guy you are verified");
+                    Get.offAll(() => const DashBoard());
+                  }
                 },
                 child: const Text("Send verification email"))
           ],

@@ -24,11 +24,12 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              // print(FirebaseAuth.instance.currentUser);
+              print(FirebaseAuth.instance.currentUser);
               if (FirebaseAuth.instance.currentUser?.emailVerified == false) {
-                Get.offAll(()=> const VerifyEmail());
+                Get.offAll(() => const VerifyEmail());
               } else {
-                print("My guy you are verified");
+                // print("My guy you are verified");
+                Get.offAll(() =>const DashBoard());
               }
               return const Text("Done");
             default:

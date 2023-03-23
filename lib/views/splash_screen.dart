@@ -24,38 +24,49 @@ class SplashScreen extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Welcome to BigmanNotes',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Welcome",
+                    style: TextStyle(
+                        fontSize: 50.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                Center(
+                  child: const Text(
+                    'to BigmanNotes',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 50.0),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(()=>LoginView());
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(fontSize: 20.0),
+                const SizedBox(height: 50.0),
+                ElevatedButton(
+                  onPressed: () {
+                    Get.to(()=>LoginView());
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20.0),
-              OutlinedButton(
-                onPressed: () {
-                  Get.to(RegisterView());
-                },
-                child: const Text(
-                  'Register',
-                  style: TextStyle(fontSize: 20.0),
+                const SizedBox(height: 20.0),
+                OutlinedButton(
+                  onPressed: () {
+                    Get.to(RegisterView());
+                  },
+                  child: const Text(
+                    'Register',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
