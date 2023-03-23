@@ -1,5 +1,7 @@
 import 'package:bigmannotes/main.dart';
+import 'package:bigmannotes/views/home_view.dart';
 import 'package:bigmannotes/views/register_view.dart';
+import 'package:bigmannotes/views/verify_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
                             .signInWithEmailAndPassword(
                                 email: email, password: password);
                         print(userCred);
-                        Get.to(()=> VerifyEmail());
+                        Get.to(() =>  HomePage());
                       } on FirebaseAuthException catch (e) {
                         if (e.code == "user-not-found") {
                           print("Account does not exist");
@@ -88,13 +90,15 @@ class _LoginViewState extends State<LoginView> {
                     },
                     child: const Text("Login"),
                   ),
-                  TextButton(onPressed: (){
-                    Get.to(()=>RegisterView());
-                  }, child: Text("Not registered? Register here!"))
+                  TextButton(
+                      onPressed: () {
+                        Get.offAll(() => RegisterView());
+                      },
+                      child: Text("Not registered? Register here!"))
                 ],
               );
             default:
-              return const Text("loading");
+              return const CircularProgressIndicator();
           }
         },
       ),
