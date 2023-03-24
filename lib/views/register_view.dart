@@ -1,4 +1,5 @@
 import 'package:bigmannotes/main.dart';
+import 'package:bigmannotes/views/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,8 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Register"),
+        backgroundColor: const Color.fromRGBO(55, 48, 107, 1),
+        centerTitle: true,
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
@@ -47,6 +50,7 @@ class _RegisterViewState extends State<RegisterView> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextField(
                     controller: _email,
@@ -63,30 +67,48 @@ class _RegisterViewState extends State<RegisterView> {
                     enableSuggestions: false,
                     autocorrect: false,
                   ),
-                  TextButton(
-                    onPressed: () async {
-                      final email = _email.text;
-                      final password = _password.text;
-                      try {
-                        final userCred = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: email, password: password);
-                        print(userCred);
-                        // if (userCred != null && userCred.user != null) {
-                        //   await Get.to(() => const ParseJson());
-                        // }
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == "weak-password") {
-                          print("Weak password");
-                        } else if (e.code == "email-already-in-use") {
-                          print("Email already in use");
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        final email = _email.text;
+                        final password = _password.text;
+                        try {
+                          final userCred = await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: email, password: password);
+                          print(userCred);
+                          Get.offAll(() => const LoginView());
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == "weak-password") {
+                            print("Weak password");
+                          } else if (e.code == "email-already-in-use") {
+                            print("Email already in use");
+                          }
                         }
-                      }
+                      },
+                      child: const Text("Register"),
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromRGBO(55, 48, 107, 1),
+                        onPrimary: Colors.white,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.offAll(() => const LoginView());
                     },
-                    child: const Text("Register"),
+                    child: Text(
+                      "Not logged in? Login here!",
+                      style: TextStyle(
+                        color: const Color.fromRGBO(55, 48, 107, 1),
+                      ),
+                    ),
                   ),
                 ],
               );
+              // return const Text("done");
             default:
               return const Text("loading");
           }

@@ -37,6 +37,7 @@ class ParseJson extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Parsing json from server"),
+          backgroundColor:const Color.fromRGBO(55, 48, 107, 1),
         ),
         body: FutureBuilder(
           future: getPost(),

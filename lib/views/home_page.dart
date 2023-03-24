@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
                   onPressed: () {
                     Get.to(const RegisterView());
                   },
-                  child: const Text('Sign In'),
+                  child: const Text('Sign up'),
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: const Color(0xFF6D478C),
