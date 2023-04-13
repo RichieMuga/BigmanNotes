@@ -12,6 +12,7 @@ class Routes {
   static const HOMEPAGE = '/splashScreen';
   static const DASHBOARD = '/dashboard';
   static const LANDINGPAGE = '/landingPage';
+  static const MAINPAGE = '/mainPage';
 
   static final routes = [
     GetPage(name: LOGIN, page: () => const LoginView()),
@@ -19,5 +20,6 @@ class Routes {
     GetPage(name: REGISTER, page: () => const RegisterView()),
     // GetPage(name: DASHBOARD, page: () => const VerifyEmail()),
     GetPage(name: LANDINGPAGE, page: () => const ParseJson()),
+    GetPage(name: MAINPAGE, page: () => const MainPage()),
   ];
 }

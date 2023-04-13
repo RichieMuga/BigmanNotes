@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../firebase_options.dart';
 import '../main.dart';
+import 'api_testing.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -81,17 +82,17 @@ class _LoginViewState extends State<LoginView> {
                           try {
                             FirebaseAuth.instance.signInWithEmailAndPassword(
                                 email: email, password: password);
-                            final userCred = await FirebaseAuth.instance
+                             await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                                     email: email, password: password);
-                            print(userCred);
+                            // print(userCred);
                             if (FirebaseAuth
                                     .instance.currentUser?.emailVerified ==
                                 false) {
                               Get.to(() => const VerifyEmail());
                             } else {
                               // print("My guy you are verified");
-                              Get.offAll(() => MyApiWidget());
+                              Get.to(() => const MainPage());
                             }
                             // await Get.to(() => const ParseJson());
                           } on FirebaseAuthException catch (e) {
@@ -104,21 +105,21 @@ class _LoginViewState extends State<LoginView> {
                             }
                           }
                         },
-                        child: const Text("Login"),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromRGBO(55, 48, 107, 1),
-                          onPrimary: Colors.white,
+                          backgroundColor: const Color.fromRGBO(55, 48, 107, 1),
+                          foregroundColor: Colors.white,
                         ),
+                        child: const Text("Login"),
                       ),
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.offAll(() => RegisterView());
+                        Get.to(() => const RegisterView());
                       },
-                      child: Text(
+                      child:const Text(
                         "Not registered? Register here!",
                         style: TextStyle(
-                          color: const Color.fromRGBO(55, 48, 107, 1),
+                          color:  Color.fromRGBO(55, 48, 107, 1),
                         ),
                       ),
                     ),

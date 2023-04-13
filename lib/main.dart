@@ -11,11 +11,7 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'views/splash_screen.dart';
 import 'package:http/http.dart' as http;
-
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
+import 'dart:developer' as devtools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,92 +26,67 @@ void main() {
   );
 }
 
-// class VerifyEmail extends StatefulWidget {
-//   const VerifyEmail({super.key});
+enum MenuAction { logout }
 
-//   @override
-//   State<VerifyEmail> createState() => _VerifyEmailState();
-// }
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
-// class _VerifyEmailState extends State<VerifyEmail> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: const Text("Verify your email"),
-//         ),
-//         body: Column(
-//           children: [
-//             const Text("Please verify your email"),
-//             TextButton(
-//                 onPressed: () async {
-//                   final user = FirebaseAuth.instance.currentUser;
-//                   // print(user);
-//                   await user?.sendEmailVerification();
-//                 },
-//                 child: const Text("Send verification email"))
-//           ],
-//         ));
-//   }
-// }
-
-class MyApiWidget extends StatefulWidget {
   @override
-  _MyApiWidgetState createState() => _MyApiWidgetState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyApiWidgetState extends State<MyApiWidget> {
-  late Future<List<dynamic>> _data;
-
-  @override
-  void initState() {
-    super.initState();
-    _data = _fetchData();
-  }
-
-  Future<List<dynamic>> _fetchData() async {
-    final response = await http.get(Uri.parse(
-        'https://jsonplaceholder.typicode.com/photos?_start=0&_limit=10'));
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Failed to fetch data');
-    }
-  }
-
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('API Example'),
+        title: const Text("BIGMAN NOTES"),
         backgroundColor: const Color.fromRGBO(55, 48, 107, 1),
+        actions: [
+          PopupMenuButton<MenuAction>(
+            onSelected: (value) async {
+              switch (value) {
+                case MenuAction.logout:
+                  final shouldLogOut = await show_logout_dialogue(context);
+                  devtools.log(shouldLogOut.toString());
+                  if (shouldLogOut){
+                    FirebaseAuth.instance.signOut();
+                    Get.offAll(() =>()=> const LoginView());
+                  }
+              }
+            },
+            itemBuilder: (context) {
+              MenuAction.logout;
+              return [
+                const PopupMenuItem(
+                  value: MenuAction.logout,
+                  child: Text('Logout'),
+                )
+              ];
+            },
+          )
+        ],
       ),
-      body: FutureBuilder<List<dynamic>>(
-        future: _data,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final item = snapshot.data![index];
-                return ListTile(
-                  leading: Image.network(item['thumbnailUrl']),
-                  title: Text(item['title']),
-                  subtitle: Text('ID: ${item['id']}'),
-                );
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('${snapshot.error}'),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+      body: Text('hi motherfucker'),
     );
   }
+}
+
+Future<bool> show_logout_dialogue(BuildContext context) {
+  return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Logout"),
+          content: const Text("Are you sure you want to log out?"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Get.back(result: false);
+                },
+                child: const Text("Cancel")),
+            TextButton(onPressed: () {}, child: const Text("Logout"))
+          ],
+        );
+      }).then((value) => value ?? false);
 }

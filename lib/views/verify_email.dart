@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bigmannotes/main.dart';
+import 'package:bigmannotes/views/home_page.dart';
 import 'package:bigmannotes/views/testingAPI.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -59,7 +61,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
         FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null && user.emailVerified) {
         // Redirect the user to the next page
-        Get.offAll(() => const ParseJson());
+        Get.to(() => const MainPage());
       }
     });
   }
@@ -91,7 +93,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   if (user != null) {
                     if (user.emailVerified) {
                       // If the user's email is already verified, redirect them to the next page
-                      Get.offAll(() => const ParseJson());
+                      Get.to(() =>const MainPage());
                     } else {
                       await user.sendEmailVerification();
                       Get.snackbar(
